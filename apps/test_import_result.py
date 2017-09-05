@@ -16,13 +16,13 @@ assert dfa.equals(dfa2)
 
 def read_csv(source):
     """Canonical wrapper for pd.read_csv().
-    
-       Treats first column at time index. 
-       
+
+       Treats first column at time index.
+
        Retruns:
-           pd.DataFrame()    
+           pd.DataFrame()
     """
-    converter_arg = dict(converters={0: pd.to_datetime}, index_col=0) 
+    converter_arg = dict(converters={0: pd.to_datetime}, index_col=0)
     return pd.read_csv(source, **converter_arg)
 
 def make_url(freq):
@@ -36,11 +36,11 @@ def get_dataframe_from_repo(freq):
     url = make_url(freq)
     return read_csv(url)
 
-sources = dict(a='https://mini-kep.herokuapp.com/annual', 
+sources = dict(a='https://mini-kep.herokuapp.com/annual',
                q='https://mini-kep.herokuapp.com/quarterly',
-				 m='https://mini-kep.herokuapp.com/monthly') 
-				  
+			   m='https://mini-kep.herokuapp.com/monthly')
+
 for freq, url in sources.items():
     df_repo = get_dataframe_from_repo(freq)
     df_app = read_csv(url)
-    assert df_repo.equals(df_app) 
+    assert df_repo.equals(df_app)
