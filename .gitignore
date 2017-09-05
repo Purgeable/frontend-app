@@ -57,6 +57,7 @@ local_settings.py
 # Flask stuff:
 instance/
 .webassets-cache
+config_local.py
 
 # Scrapy stuff:
 .scrapy
@@ -99,3 +100,6 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# Editors
+.vscode/
