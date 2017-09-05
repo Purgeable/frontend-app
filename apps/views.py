@@ -29,7 +29,7 @@ def check_status():
         f.close()
     return jsonify(json_data)
 
-@main.route('/webhook/', methods=['GET'])
+@main.route('/webhook/', methods=['POST'])
 def webhook():
     """Receive payload from GitHub webhook then run tests."""
     def _get_status_from_exitcode(code):
