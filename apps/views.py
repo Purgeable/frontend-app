@@ -52,7 +52,7 @@ def webhook():
     with open('status.json', 'w') as f:
         comment = _get_comment_from_exitcode(exit_code)
         now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        body = '{"timestamp": "%s", "status": "%s", "comment": "%s"}' % (
+        body = '{"timestamp": "%s", "status": %s, "comment": "%s"}' % (
             now,
             exit_code,
             comment
