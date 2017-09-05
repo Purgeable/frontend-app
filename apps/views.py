@@ -30,7 +30,7 @@ def check_status():
         f.close()
     return jsonify(json_data)
 
-@main.route('/webhook/', methods=['POST'])
+@main.route('/webhook/', methods=['GET'])
 def webhook():
     """Receive payload from GitHub webhook then run tests."""
     def _get_comment_from_exitcode(code):
@@ -53,12 +53,12 @@ def webhook():
         comment = _get_comment_from_exitcode(exit_code)
         now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         is_validated = 'true' if exit_code == 0 else 'false'
-        body = '{"timestamp": "%s", "pytest_exit_code": %s, "is_validated": %s, "comment": "%s"}' % (
-            now,
-            exit_code,
-            is_validated,
-            comment
-        )
-        f.write(body)
+        body = {
+            'timestamp': now,
+            'pytest_exit_code': exit_code,
+            'is_validated': is_validated,
+            'comment': comment
+        }
+        f.write(str(body).replace("'", '"'))
         f.close()
     return render_template_string("")
