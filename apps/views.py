@@ -29,13 +29,27 @@ def check_status():
         f.close()
     return jsonify(json_data)
 
-@main.route('/webhook/', methods=['POST'])
+@main.route('/webhook/', methods=['GET'])
 def webhook():
     """Receive payload from GitHub webhook then run tests."""
+    def _get_status_from_exitcode(code):
+        if code == 0:
+            return "All tests were collected and passed successfully"
+        if code == 1:
+            return "Tests were collected and run but some of the tests failed"
+        if code == 2:
+            return "Test execution was interrupted by the user"
+        if code == 3:
+            return "Internal error happened while executing tests"
+        if code == 4:
+            return "pytest command line usage error"
+        if code == 5:
+            return "No tests were collected"
+
     json_data = request.get_json()
     exit_code = subprocess.call(['pytest'], shell=True)
     with open('status.json', 'w') as f:
-        status = 'success' if exit_code == 0 else 'error'
+        status = _get_status_from_exitcode(exit_code)
         f.write('{"status": "%s"}' % status)
         f.close()
     return render_template_string("")
