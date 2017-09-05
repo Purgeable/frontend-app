@@ -3,11 +3,11 @@ Flask app with API to get macroeconomic time series
 
 ## v.0.1 - three bare CSVs with github webhook
 
-App address <app>:
+#### App address <app>:
 
    - <kep.heroku address> or custom domain
 
-Backends:
+#### Backends:
 
    - <app>/annual 
    - <app>/quarterly
@@ -15,11 +15,12 @@ Backends:
    
    Backends deliver dfa.csv, dfq.csv, dfm.csv
    
-Testing:
+#### Testing:
  
 ```python 
    
-   # getter is https://github.com/epogrebnyak/mini-kep/blob/master/src/getter.py, can copy code to actual test
+   # getter is https://github.com/epogrebnyak/mini-kep/blob/master/src/getter.py
+   # can copy code to actual test file
    
    from getter import read_csv, get_dataframe_from_repo  
    
@@ -34,12 +35,12 @@ Testing:
      
 ```
    
-Github webhooks:
+#### Github webhooks:
 
    On ```issue_comment``` or ```release```  three CSV files are updated in app
    
 
-Extensions (not todo now):
+#### Extensions (not todo now):
   - custom domain/URL
   - frontpage with some welcome comments or intro at '/'
 
