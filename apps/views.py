@@ -52,9 +52,11 @@ def webhook():
     with open('status.json', 'w') as f:
         comment = _get_comment_from_exitcode(exit_code)
         now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        body = '{"timestamp": "%s", "status": %s, "comment": "%s"}' % (
+        is_validated = 'true' if exit_code == 0 else 'false'
+        body = '{"timestamp": "%s", "pytest_exit_code": %s, "is_validated": %s, "comment": "%s"}' % (
             now,
             exit_code,
+            is_validated,
             comment
         )
         f.write(body)
