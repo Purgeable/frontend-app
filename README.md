@@ -43,9 +43,10 @@ Flask app with API to get macroeconomic time series
 #### Extensions (not todo now):
   - custom domain/URL
   - frontpage with 'Hello, world!' at '/'
-  - change 'Hello, world!' usage instruction 
 
 ## Proposed enhancements
+
+- change 'Hello, world!' to usage instruction 
 
 - requests log to catch popular series: <https://fred.stlouisfed.org/#popular-series>
 
