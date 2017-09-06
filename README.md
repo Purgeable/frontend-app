@@ -1,22 +1,39 @@
 # mini-kep-app
 Flask app with API to get macroeconomic time series
 
-## v.0.1 - three bare CSVs with github webhook
+## v.0.1 - three bare CSVs with github webhook + intro at frontpage
 
-#### App address <app>:
+#### App address:
 
-   - <kep.heroku address> or custom domain
+   - <http://mini-kep.herokuapp.com>
 
-#### Backends:
+#### Frontpage: 
+  - 'hello world!' stub (EP: may describe the interfaces/their usage/ code example)
+  - renders markdown
+  - no css as of now
 
-   - <app>/annual 
-   - <app>/quarterly
-   - <app>/monthly
+#### Data interfaces:
+
+   - <http://mini-kep.herokuapp.com/annual>
+   - <http://mini-kep.herokuapp.com/quarterly>
+   - <http://mini-kep.herokuapp.com/monthly>
    
-   Backends deliver dfa.csv, dfq.csv, dfm.csv
    
-#### Testing:
+Data interfaces relay to copies of the files:        
+[dfa.csv](https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/dfa.csv), 
+[dfq.csv](https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/dfq.csv), 
+[dfm.csv](https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/dfm.csv).
+   
+#### Github webhook:
+
+   On ```issue_comment``` or ```release```  three CSV files are updated in app
+   
+#### Integration test:
  
+The logic of the test is assure identity of the csv files at parent repo ant and app data interfaces.
+
+TODO: may want to change implementation, logic is fine
+
 ```python 
    
    # getter is https://github.com/epogrebnyak/mini-kep/blob/master/src/getter.py
@@ -34,17 +51,14 @@ Flask app with API to get macroeconomic time series
 	   assert df_repo.equals(df_app)  
      
 ```
-   
-#### Github webhooks:
 
-   On ```issue_comment``` or ```release```  three CSV files are updated in app
    
 
-#### Extensions (not todo now):
-  - custom domain/URL
-  - frontpage with 'Hello, world!' at '/'
+## Proposed enhancements 
 
-## Proposed enhancements
+- see listing at <https://github.com/epogrebnyak/mini-kep-app/issues/1>
+
+- custom domain/URL
 
 - change 'Hello, world!' to usage instruction 
 
