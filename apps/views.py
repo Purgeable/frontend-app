@@ -55,6 +55,7 @@ def webhook():
         if code == 5:
             return "No tests were collected"
 
+    # Save test results to status.json
     exit_code = subprocess.call(['pytest'], shell=True)
     with open('status.json', 'w') as json_file:
         comment = _get_comment_from_exitcode(exit_code)
