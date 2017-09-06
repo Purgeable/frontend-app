@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/epogrebnyak/mini-kep-app.svg?branch=master)](https://travis-ci.org/epogrebnyak/mini-kep-app)
+
 # mini-kep-app
 Flask app with API to get macroeconomic time series
 
@@ -10,7 +12,7 @@ Flask app with API to get macroeconomic time series
 #### Frontpage: 
   - 'hello world!' stub (EP: may describe the interfaces/their usage/ code example)
   - renders markdown
-  - no css as of now
+  - no css as of now (EP: maybe some generic theme?)
 
 #### Data interfaces:
 
@@ -19,10 +21,10 @@ Flask app with API to get macroeconomic time series
    - <http://mini-kep.herokuapp.com/monthly>
    
    
-Data interfaces relay to copies of the files: 
-[dfa.csv](https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/dfa.csv), 
-[dfq.csv](https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/dfq.csv), 
-[dfm.csv](https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/dfm.csv).
+Data interfaces relay copies of the following files: 
+- [dfa.csv](https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/dfa.csv) 
+- [dfq.csv](https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/dfq.csv) 
+- [dfm.csv](https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/dfm.csv).
 
 
 #### Github webhook:
@@ -38,26 +40,7 @@ Data interfaces relay to copies of the files:
  
 The logic of the test is assure identity of the csv files at parent repo ant and app data interfaces.
 
-TODO: may want to change implementation, logic is fine
-
-```python 
-   
-   # getter is https://github.com/epogrebnyak/mini-kep/blob/master/src/getter.py
-   # can copy code to actual test file
-   
-   from getter import read_csv, get_dataframe_from_repo  
-   
-   sources = dict(a='<app>/annual', 
-                  q='<app>/quarterly',
-				  m='<app>/monthly') 
-				  
-   for freq, url in sources.items():
-	   df_repo = get_dataframe_from_repo(freq)
-	   df_app = read_csv(url)
-	   assert df_repo.equals(df_app)  
-     
-```
-
+See <https://github.com/epogrebnyak/mini-kep-app/blob/master/tests/test_integrity.py>
    
 
 ## Proposed enhancements 
