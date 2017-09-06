@@ -23,6 +23,9 @@ CSRF_SESSION_KEY = 'dKRgIERpSvVZuxFXKceWjyrCqw3tvyhE'
 # Secret key for signing cookies and other things
 SECRET_KEY = 'Z30ojtSS6Ix9PspXRuqjSUFR0ocL5Zkt'
 
+# Miscellaneous settings
+BASE_URL = 'https://mini-kep.herokuapp.com/'
+
 # Apply local environment settings during development
 try:
     from config_local import *

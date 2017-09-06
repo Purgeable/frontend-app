@@ -5,7 +5,6 @@ import subprocess
 from flask import Blueprint, render_template_string, render_template, \
                   jsonify
 from .classes import CSVFile
-from .df_string_proxies import dfa_text, dfm_text, dfq_text
 
 # Define the blueprint for this application
 main = Blueprint('main', __name__, template_folder='../templates')
@@ -37,7 +36,7 @@ def check_status():
     with open('status.json') as f:
         json_data = json.loads(f.read())
         f.close()
-    jsonify(json_data)
+    return jsonify(json_data)
 
 @main.route('/webhook/', methods=['POST'])
 def webhook():
@@ -57,7 +56,7 @@ def webhook():
             return "No tests were collected"
 
     exit_code = subprocess.call(['pytest'], shell=True)
-    with open('status.json', 'w') as f:
+    with open('status.json', 'w') as json_file:
         comment = _get_comment_from_exitcode(exit_code)
         now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         body = {
@@ -66,8 +65,8 @@ def webhook():
             'is_validated': exit_code == 0,
             'comment': comment
         }
-        f.write(json.dumps(body))
-        f.close()
+        json_file.write(json.dumps(body))
+        json_file.close()
 
     # Update local copies with the latest data
     filenames = ['dfa.csv', 'dfm.csv', 'dfq.csv']

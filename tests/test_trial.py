@@ -1,10 +1,9 @@
 import json
 import urllib.request
 import pandas as pd
+import config
 
 from datetime import date
-
-BASE_URL = 'https://mini-kep.herokuapp.com/'
 
 # client reader check
 
@@ -13,7 +12,7 @@ def read_csv(source):
 
        Treats first column at time index.
 
-       Retruns:
+       Returns:
            pd.DataFrame()
     """
     converter_arg = dict(converters={0: pd.to_datetime}, index_col=0)
@@ -31,9 +30,9 @@ def get_dataframe_from_repo(freq):
 
 def test_csv_integrity():
     sources = {
-        'a': '%sannual' % BASE_URL,
-        'q': '%squarterly' % BASE_URL,
-        'm': '%smonthly' % BASE_URL
+        'a': '%sannual' % config.BASE_URL,
+        'q': '%squarterly' % config.BASE_URL,
+        'm': '%smonthly' % config.BASE_URL
     }
     for freq, url in sources.items():
         df_repo = get_dataframe_from_repo(freq)
@@ -41,7 +40,7 @@ def test_csv_integrity():
         assert df_repo.equals(df_app)
 
 def test_status_json():
-    with urllib.request.urlopen('%sstatus/' % BASE_URL) as url:
+    with urllib.request.urlopen('%sstatus/' % config.BASE_URL) as url:
         status = json.loads(url.read().decode())
         assert isinstance(status, dict)
         assert status['pytest_exit_code'] == 0
