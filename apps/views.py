@@ -2,11 +2,16 @@ import json
 import datetime
 import subprocess
 
-from flask import Blueprint, render_template_string, request, jsonify
+from flask import Blueprint, render_template_string, render_template, \
+                  request, jsonify
 from .df_string_proxies import dfa_text, dfm_text, dfq_text
 
 # Define the blueprint for this application
-main = Blueprint('main', __name__)
+main = Blueprint('main', __name__, template_folder='../templates')
+
+@main.route('/')
+def home():
+    return render_template('home.html')
 
 @main.route('/annual/')
 def annual():
@@ -30,7 +35,7 @@ def check_status():
         f.close()
     return jsonify(json_data)
 
-@main.route('/webhook/', methods=['GET'])
+@main.route('/webhook/', methods=['POST'])
 def webhook():
     """Receive payload from GitHub webhook then run tests."""
     def _get_comment_from_exitcode(code):
@@ -52,13 +57,12 @@ def webhook():
     with open('status.json', 'w') as f:
         comment = _get_comment_from_exitcode(exit_code)
         now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        is_validated = 'true' if exit_code == 0 else 'false'
         body = {
             'timestamp': now,
             'pytest_exit_code': exit_code,
-            'is_validated': is_validated,
+            'is_validated': exit_code == 0,
             'comment': comment
         }
-        f.write(str(body).replace("'", '"'))
+        f.write(json.dumps(body))
         f.close()
     return render_template_string("")
