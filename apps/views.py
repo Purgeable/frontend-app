@@ -4,6 +4,7 @@ import subprocess
 
 from flask import Blueprint, render_template_string, render_template, \
                   request, jsonify
+from .classes import CSVFile
 from .df_string_proxies import dfa_text, dfm_text, dfq_text
 
 # Define the blueprint for this application
@@ -15,18 +16,21 @@ def home():
 
 @main.route('/annual/')
 def annual():
-    content = dfa_text
-    return render_template_string(content)
+    csv_file = CSVFile('dfa.csv')
+    contents = csv_file.get_contents()
+    return render_template_string(contents)
 
 @main.route('/quarterly/')
 def quarterly():
-    content = dfq_text
-    return render_template_string(content)
+    csv_file = CSVFile('dfq.csv')
+    contents = csv_file.get_contents()
+    return render_template_string(contents)
 
 @main.route('/monthly/')
 def monthly():
-    content = dfm_text
-    return render_template_string(content)
+    csv_file = CSVFile('dfm.csv')
+    contents = csv_file.get_contents()
+    return render_template_string(contents)
 
 @main.route('/status/')
 def check_status():
@@ -35,7 +39,7 @@ def check_status():
         f.close()
     return jsonify(json_data)
 
-@main.route('/webhook/', methods=['POST'])
+@main.route('/webhook/', methods=['GET'])
 def webhook():
     """Receive payload from GitHub webhook then run tests."""
     def _get_comment_from_exitcode(code):
@@ -65,4 +69,10 @@ def webhook():
         }
         f.write(json.dumps(body))
         f.close()
+
+    # Update local copies with the latest data
+    filenames = ['dfa.csv', 'dfm.csv', 'dfq.csv']
+    for name in filenames:
+        csv_file = CSVFile(name)
+        csv_file.update()
     return render_template_string("")
