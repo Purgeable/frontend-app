@@ -3,7 +3,7 @@ import datetime
 import subprocess
 
 from flask import Blueprint, render_template_string, render_template, \
-                  request, jsonify
+                  jsonify
 from .classes import CSVFile
 from .df_string_proxies import dfa_text, dfm_text, dfq_text
 
@@ -37,9 +37,9 @@ def check_status():
     with open('status.json') as f:
         json_data = json.loads(f.read())
         f.close()
-    return jsonify(json_data)
+    jsonify(json_data)
 
-@main.route('/webhook/', methods=['GET'])
+@main.route('/webhook/', methods=['POST'])
 def webhook():
     """Receive payload from GitHub webhook then run tests."""
     def _get_comment_from_exitcode(code):
@@ -56,7 +56,6 @@ def webhook():
         if code == 5:
             return "No tests were collected"
 
-    json_data = request.get_json()
     exit_code = subprocess.call(['pytest'], shell=True)
     with open('status.json', 'w') as f:
         comment = _get_comment_from_exitcode(exit_code)

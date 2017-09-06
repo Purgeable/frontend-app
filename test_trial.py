@@ -1,16 +1,10 @@
+import json
+import urllib.request
 import pandas as pd
 
+from datetime import date
 
-# raw rd.read_csv check
-
-url_a = 'https://mini-kep.herokuapp.com/annual/'
-dfa = pd.read_csv(url_a)
-
-url_a_repo = 'https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/dfa.csv'
-dfa2 = pd.read_csv(url_a_repo)
-
-#assert dfa.equals(dfa2)
-
+BASE_URL = 'https://mini-kep.herokuapp.com/'
 
 # client reader check
 
@@ -30,31 +24,28 @@ def make_url(freq):
     filename = "df{}.csv".format(freq)
     return url_base.format(filename)
 
-
 def get_dataframe_from_repo(freq):
     """Suggested code to read pandas dataframes from 'mini-kep' stable URL."""
     url = make_url(freq)
     return read_csv(url)
 
-sources = dict(a='https://mini-kep.herokuapp.com/annual',
-               q='https://mini-kep.herokuapp.com/quarterly',
-				 m='https://mini-kep.herokuapp.com/monthly')
+def test_csv_integrity():
+    sources = {
+        'a': '%sannual' % BASE_URL,
+        'q': '%squarterly' % BASE_URL,
+        'm': '%smonthly' % BASE_URL
+    }
+    for freq, url in sources.items():
+        df_repo = get_dataframe_from_repo(freq)
+        df_app = read_csv(url)
+        assert df_repo.equals(df_app)
 
-for freq, url in sources.items():
-    df_repo = get_dataframe_from_repo(freq)
-    df_app = read_csv(url)
-    # assert df_repo.equals(df_app)
-
-
-# test json
-
-import urllib.request, json
-
-def test_json():
-    with urllib.request.urlopen('http://mini-kep.herokuapp.com/status/') as url:
+def test_status_json():
+    with urllib.request.urlopen('%sstatus/' % BASE_URL) as url:
         status = json.loads(url.read().decode())
         assert isinstance(status, dict)
         assert status['pytest_exit_code'] == 0
-        assert pd.to_datetime('2017-09-05 19:05:44').year >= 2017 # generally, today or after
-        #this fails:
+        current_year = date.today().year
+        year = pd.to_datetime(status['timestamp']).year
+        assert year >= current_year # generally, today or after
         assert status['is_validated'] is True
