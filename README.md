@@ -19,15 +19,21 @@ Flask app with API to get macroeconomic time series
    - <http://mini-kep.herokuapp.com/monthly>
    
    
-Data interfaces relay to copies of the files:        
+Data interfaces relay to copies of the files: 
 [dfa.csv](https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/dfa.csv), 
 [dfq.csv](https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/dfq.csv), 
 [dfm.csv](https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/dfm.csv).
-   
+
+
 #### Github webhook:
 
    On ```issue_comment``` or ```release```  three CSV files are updated in app
-   
+
+#### Status URL:
+
+<http://mini-kep.herokuapp.com/status> provides json with latest repo-app data syncronisation status. 
+
+
 #### Integration test:
  
 The logic of the test is assure identity of the csv files at parent repo ant and app data interfaces.
