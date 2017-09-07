@@ -8,27 +8,7 @@ from datetime import date
 from urllib.parse import urljoin
 from flask import url_for
 from apps import app
-
-def read_csv(source):
-    """Canonical wrapper for pd.read_csv().
-
-       Treats first column at time index.
-
-       Returns:
-           pd.DataFrame()
-    """
-    converter_arg = dict(converters={0: pd.to_datetime}, index_col=0)
-    return pd.read_csv(source, **converter_arg)
-
-def make_url(freq):
-    url_base = "https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/{}"
-    filename = "df{}.csv".format(freq)
-    return url_base.format(filename)
-
-def get_dataframe_from_repo(freq):
-    """Suggested code to read pandas dataframes from 'mini-kep' stable URL."""
-    url = make_url(freq)
-    return read_csv(url)
+from apps.classes import DataFrame
 
 class IntegrityTestCase(unittest.TestCase):
     def test_integrity(self):
@@ -40,8 +20,9 @@ class IntegrityTestCase(unittest.TestCase):
                 'm': urljoin(config.HOST_URL, url_for('main.monthly'))
             }
             for freq, url in sources.items():
-                df_repo = get_dataframe_from_repo(freq)
-                df_app = read_csv(url)
+                df = DataFrame()
+                df_repo = df.get_from_repo(freq)
+                df_app = df.read_csv(url)
                 assert df_repo.equals(df_app)
 
     def test_status_json(self):
