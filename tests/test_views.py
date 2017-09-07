@@ -2,9 +2,15 @@ import unittest
 import urllib.request
 import config
 
+from urllib.parse import urljoin
+from flask import url_for
+from apps import app
+
 class HomeTestCase(unittest.TestCase):
     def setUp(self):
-        self.response = urllib.request.urlopen(config.BASE_URL)
+        with app.test_request_context():
+            url = urljoin(config.HOST_URL, url_for('main.home'))
+        self.response = urllib.request.urlopen(url)
 
     def test_status_code(self):
         status_code = self.response.getcode()
@@ -12,7 +18,8 @@ class HomeTestCase(unittest.TestCase):
 
 class AnnualTestCase(unittest.TestCase):
     def setUp(self):
-        url = '%sannual' % config.BASE_URL
+        with app.test_request_context():
+            url = urljoin(config.HOST_URL, url_for('main.annual'))
         self.response = urllib.request.urlopen(url)
 
     def test_status_code(self):
@@ -21,7 +28,8 @@ class AnnualTestCase(unittest.TestCase):
 
 class QuarterlyTestCase(unittest.TestCase):
     def setUp(self):
-        url = '%squarterly' % config.BASE_URL
+        with app.test_request_context():
+            url = urljoin(config.HOST_URL, url_for('main.quarterly'))
         self.response = urllib.request.urlopen(url)
 
     def test_status_code(self):
@@ -30,7 +38,8 @@ class QuarterlyTestCase(unittest.TestCase):
 
 class MonthlyTestCase(unittest.TestCase):
     def setUp(self):
-        url = '%smonthly' % config.BASE_URL
+        with app.test_request_context():
+            url = urljoin(config.HOST_URL, url_for('main.monthly'))
         self.response = urllib.request.urlopen(url)
 
     def test_status_code(self):

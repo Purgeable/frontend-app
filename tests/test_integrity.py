@@ -5,6 +5,9 @@ import pandas as pd
 import config
 
 from datetime import date
+from urllib.parse import urljoin
+from flask import url_for
+from apps import app
 
 def read_csv(source):
     """Canonical wrapper for pd.read_csv().
@@ -29,22 +32,26 @@ def get_dataframe_from_repo(freq):
 
 class IntegrityTestCase(unittest.TestCase):
     def test_integrity(self):
-        sources = {
-            'a': '%sannual' % config.BASE_URL,
-            'q': '%squarterly' % config.BASE_URL,
-            'm': '%smonthly' % config.BASE_URL
-        }
-        for freq, url in sources.items():
-            df_repo = get_dataframe_from_repo(freq)
-            df_app = read_csv(url)
-            assert df_repo.equals(df_app)
+        with app.test_request_context():
+            # read_csv() can read only absolute URLs
+            sources = {
+                'a': urljoin(config.HOST_URL, url_for('main.annual')),
+                'q': urljoin(config.HOST_URL, url_for('main.quarterly')),
+                'm': urljoin(config.HOST_URL, url_for('main.monthly'))
+            }
+            for freq, url in sources.items():
+                df_repo = get_dataframe_from_repo(freq)
+                df_app = read_csv(url)
+                assert df_repo.equals(df_app)
 
     def test_status_json(self):
-        with urllib.request.urlopen('%sstatus/' % config.BASE_URL) as url:
-            status = json.loads(url.read().decode())
-            assert isinstance(status, dict)
-            assert status['pytest_exit_code'] == 0
-            current_year = date.today().year
-            year = pd.to_datetime(status['timestamp']).year
-            assert year >= current_year # generally, today or after
-            assert status['is_validated'] is True
+        with app.test_request_context():
+            url = urljoin(config.HOST_URL, url_for('main.check_status'))
+            with urllib.request.urlopen(url) as data:
+                status = json.loads(data.read().decode())
+                assert isinstance(status, dict)
+                assert status['pytest_exit_code'] == 0
+                current_year = date.today().year
+                year = pd.to_datetime(status['timestamp']).year
+                assert year >= current_year # generally, today or after
+                assert status['is_validated'] is True

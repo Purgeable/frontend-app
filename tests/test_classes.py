@@ -11,9 +11,8 @@ class CSVTestCase(unittest.TestCase):
         assert self.csv_file.url == 'https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/dfa.csv'
 
     def test_open_local(self):
-        file_ = self.csv_file._open_local('r')
-        assert hasattr(file_, 'read')
-        file_.close()
+        with self.csv_file._open_local('r') as file_:
+            assert hasattr(file_, 'read')
 
     def test_get_contents(self):
         contents = self.csv_file.get_contents()
