@@ -1,7 +1,7 @@
 import json
 import datetime
 import subprocess
-#import markdown2 as md
+import markdown2 as md
 
 from flask import (Blueprint, render_template_string, render_template,
                    jsonify, Markup)
