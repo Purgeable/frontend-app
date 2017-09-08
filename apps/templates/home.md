@@ -11,8 +11,8 @@ You can get this data with [pandas](http://pandas.pydata.org/pandas-docs/stable/
 import pandas as pd
 
 URL = {'a': 'http://mini-kep.herokuapp.com/annual',
-       'q': 'http://mini-kep.herokuapp.com/quarterly',
-       'm': 'http://mini-kep.herokuapp.com/monthly'}
+    'q': 'http://mini-kep.herokuapp.com/quarterly',
+    'm': 'http://mini-kep.herokuapp.com/monthly'}
 
 def read_csv(source):
     return pd.read_csv(source, converters={0: pd.to_datetime}, index_col=0)
