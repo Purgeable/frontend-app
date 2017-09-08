@@ -32,7 +32,7 @@ Data interfaces relay copies of the following files:
 
 #### Status URL:
 
-<http://mini-kep.herokuapp.com/status> provides json with latest repo-app data syncronisation status. 
+<http://mini-kep.herokuapp.com/status> provides json with latest repo-app data syncronisation status.  
 
 
 #### Integration test:
