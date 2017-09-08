@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/epogrebnyak/mini-kep-app.svg?branch=master)](https://travis-ci.org/epogrebnyak/mini-kep-app)
 
-# mini-kep-app
+# mini-kep-app 
 Flask app with API to get macroeconomic time series
 
 ## v.0.1 - relay three CSVs by github webhook + intro at frontpage
