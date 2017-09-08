@@ -30,7 +30,7 @@ class LocalFile(object):
             contents = csv.read()
         return contents
     
-    def __eq__(self. x):
+    def __eq__(self, x):
         return self.get_contents() == x.get_contents()
 
 class RemoteFile(object):
