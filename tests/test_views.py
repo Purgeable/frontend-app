@@ -1,10 +1,12 @@
 import unittest
+import pandas as pd
 import config
 
 from urllib.parse import urljoin
 from flask import url_for
 from apps import app
-from apps.classes import DataFrame
+
+CONVERTER_ARGS = dict(converters={0: pd.to_datetime}, index_col=0)
 
 class HomeTestCase(unittest.TestCase):
     def setUp(self):
@@ -31,8 +33,7 @@ class AnnualTestCase(unittest.TestCase):
         assert isinstance(self.data, str)
 
     def test_json(self):
-        df = DataFrame()
-        csv_data = df.read_csv(self.url)
+        csv_data = pd.read_csv(self.url, **CONVERTER_ARGS)
         assert not csv_data.empty
 
 class QuarterlyTestCase(unittest.TestCase):
@@ -48,8 +49,7 @@ class QuarterlyTestCase(unittest.TestCase):
         assert isinstance(self.data, str)
 
     def test_json(self):
-        df = DataFrame()
-        csv_data = df.read_csv(self.url)
+        csv_data = pd.read_csv(self.url, **CONVERTER_ARGS)
         assert not csv_data.empty
 
 class MonthlyTestCase(unittest.TestCase):
@@ -65,6 +65,5 @@ class MonthlyTestCase(unittest.TestCase):
         assert isinstance(self.data, str)
 
     def test_json(self):
-        df = DataFrame()
-        csv_data = df.read_csv(self.url)
+        csv_data = pd.read_csv(self.url, **CONVERTER_ARGS)
         assert not csv_data.empty

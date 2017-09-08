@@ -1,22 +1,20 @@
 import json
 import datetime
-import subprocess
-import markdown2 as md
 
-from flask import (Blueprint, render_template_string, render_template,
-                   jsonify, Markup)
+from flask import Blueprint, render_template_string, jsonify
 from .classes import LocalFile, RemoteFile
+from .decorators import with_markdown
+
+# Define module constants
+FILENAMES = ('dfa.csv', 'dfq.csv', 'dfm.csv')
 
 # Define the blueprint for this application
-main = Blueprint('main', __name__, template_folder='../templates')
+main = Blueprint('main', __name__)
 
 @main.route('/')
+@with_markdown('home.md')
 def home():
-    #FIXME: maybe pygments can go here too?
-    md_extras = ['fenced-code-blocks']
-    source = render_template('home.html')
-    contents = Markup(md.markdown(source, extras=md_extras))
-    return render_template_string(contents)
+    pass
 
 def render_file(filename):
     csv_file = LocalFile(filename)
@@ -33,73 +31,47 @@ def quarterly():
 
 @main.route('/monthly/')
 def monthly():
-    return render_file('dfmq.csv')
+    return render_file('dfm.csv')
 
-@main.route('/status/')
-def check_status():
-    with open('status.json') as f:
-        json_data = json.loads(f.read())
-    return jsonify(json_data)
-
-# Not used - to depreciate ----------------------------------------------------                
-class ExitCodeDoesNotExist(Exception):
-    """Raise when pytest exit code is unknown."""
-    pass
-
-
-def get_pytest_integration_test_result():  
-    """Return pytest result and string comment."""
-    comments = {
-        0: "All tests were collected and passed successfully",
-        1: "Tests were collected and run but some of the tests failed",
-        2: "Test execution was interrupted by the user",
-        3: "Internal error happened while executing tests",
-        4: "pytest command line usage error",
-        5: "No tests were collected"
-    }
-    # not this specific to integration test
-    exit_code = subprocess.call(['pytest'], shell=True)
-    try:
-         return exit_code, comments[exit_code]
-    except KeyError:
-         raise ExitCodeDoesNotExist("pytest exited with an unknown code")   
- # end  -----------------------------------------------------------------------
-  
-def check_csv_identity(): 
+def check_csv_identity():
+    """Ensure that contents of local CSV files match their remote
+    counterparts.
+    """
     flags = []
-    for filename in ['dfa.csv', 'dfq.csv', 'dfm.csv']:
+    for filename in FILENAMES:
         # this will use get_contents()
         flag = (LocalFile(filename) == RemoteFile(filename))
         flags.append(flag)
     return all(flags)
-  
+
 def from_json(filename):
+    """Load JSON contents and convert them into dict."""
     with open(filename, 'r') as f:
         content = f.read()
     return json.loads(content)
-    
+
 def to_json(what, filename):
-    # Save test results to status.json
+    """Save test results to status.json"""
     with open(filename, 'w') as f:
         content = json.dumps(what)
-        f.write(content)        
-    
+        f.write(content)
 
-@main.route('/webhook/', methods=['POST'])
+@main.route('/status/')
+def check_status():
+    """Page that reflects the current status of file identity."""
+    return jsonify(from_json('status.json'))
+
+@main.route('/webhook/', methods=['POST', 'GET'])
 def webhook():
     """Receive payload from GitHub webhook and re-check file identity."""
-   
-    #EP: we had to update files first before test! Not after it! ;))
-    
     # Update local copies with the latest data
-    filenames = ['dfa.csv', 'dfm.csv', 'dfq.csv']
-    for name in filenames:
+    for name in FILENAMES:
         csv_file = LocalFile(name)
         csv_file.update_from_parent_repo()
-    
+
     # get a bool on identity of the files
-    is_updated_ok = check_csv_identity()    
-    
+    is_updated_ok = check_csv_identity()
+
     now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     status_dict = {'timestamp': now,
                    'is_updated_ok': is_updated_ok}
