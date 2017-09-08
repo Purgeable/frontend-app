@@ -61,7 +61,7 @@ def check_status():
     """Page that reflects the current status of file identity."""
     return jsonify(from_json('status.json'))
 
-@main.route('/webhook/', methods=['POST', 'GET'])
+@main.route('/webhook/', methods=['POST'])
 def webhook():
     """Receive payload from GitHub webhook and re-check file identity."""
     # Update local copies with the latest data
