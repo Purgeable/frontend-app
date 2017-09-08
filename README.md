@@ -3,16 +3,16 @@
 # mini-kep-app
 Flask app with API to get macroeconomic time series
 
-## v.0.1 - three bare CSVs with github webhook + intro at frontpage
+## v.0.1 - relay three CSVs by github webhook + intro at frontpage
 
 #### App address:
 
    - <http://mini-kep.herokuapp.com>
 
 #### Frontpage: 
-  - 'hello world!' stub (EP: may describe the interfaces/their usage/ code example)
+  - has code exmaple
   - renders markdown
-  - no css as of now (EP: maybe some generic theme?)
+  - [some generic css theme + pygments](https://github.com/epogrebnyak/mini-kep-app/issues/4)?
 
 #### Data interfaces:
 
@@ -22,14 +22,13 @@ Flask app with API to get macroeconomic time series
    
    
 Data interfaces relay copies of the following files: 
-- [dfa.csv](https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/dfa.csv) 
-- [dfq.csv](https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/dfq.csv) 
+- [dfa.csv](https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/dfa.csv), 
+- [dfq.csv](https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/dfq.csv), 
 - [dfm.csv](https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/dfm.csv).
-
 
 #### Github webhook:
 
-   On ```issue_comment``` or ```release```  three CSV files are updated in app
+   On ```issue_comment``` or ```release```  three CSV files are updated in app.
 
 #### Status URL:
 
@@ -38,18 +37,14 @@ Data interfaces relay copies of the following files:
 
 #### Integration test:
  
-The logic of the test is assure identity of the csv files at parent repo ant and app data interfaces.
+The logic of [the test](https://github.com/epogrebnyak/mini-kep-app/blob/master/tests/test_integrity.py)
+is assure identity of the csv files at parent repo ant and app data interfaces.
 
-See <https://github.com/epogrebnyak/mini-kep-app/blob/master/tests/test_integrity.py>
-   
-
-## Proposed enhancements 
+## Proposed enhancements: 
 
 - see listing at <https://github.com/epogrebnyak/mini-kep-app/issues/1>
 
 - custom domain/URL
-
-- change 'Hello, world!' to usage instruction 
 
 - requests log to catch popular series: <https://fred.stlouisfed.org/#popular-series>
 
@@ -75,3 +70,5 @@ get(freq, vars)
 
 #not todo - always on client side: trimming dates, variable transformations 
 ```
+
+- indicator homepage with social plugins
