@@ -1,9 +1,8 @@
-{% filter markdown %}
 Welcome!
 ========
 
 **2017-09-07:** This app has three URLs that relay annual, quarterly and monthly macroeconomic time series
-from [mini-kep parser](https://github.com/epogrebnyak/mini-kep). 
+from [mini-kep parser](https://github.com/epogrebnyak/mini-kep).
 
 
 You can get this data with [pandas](http://pandas.pydata.org/pandas-docs/stable/install.html) using code below:
@@ -22,5 +21,3 @@ dfa, dfq, dfm = (read_csv(URL[freq]) for freq in 'aqm')
 ```
 
 More to follow!
-
-{% endfilter %}

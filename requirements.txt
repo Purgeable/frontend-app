@@ -1,5 +1,5 @@
 flask==0.12.2
 pandas
-Flask-Markdown
+markdown2
 pytest
 gunicorn

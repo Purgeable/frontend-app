@@ -1,9 +1,10 @@
 import json
 import datetime
 import subprocess
+import markdown2 as md
 
 from flask import Blueprint, render_template_string, render_template, \
-                  jsonify
+                  jsonify, Markup
 from .classes import CSVFile
 
 # Define the blueprint for this application
@@ -11,7 +12,10 @@ main = Blueprint('main', __name__, template_folder='../templates')
 
 @main.route('/')
 def home():
-    return render_template('home.html')
+    md_extras = ['fenced-code-blocks']
+    source = render_template('home.html')
+    contents = Markup(md.markdown(source, extras=md_extras))
+    return render_template_string(contents)
 
 @main.route('/annual/')
 def annual():
