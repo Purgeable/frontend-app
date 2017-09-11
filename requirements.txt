@@ -3,4 +3,6 @@ pandas
 Pygments
 markdown
 pytest
+coverage
+coverage-badge
 gunicorn
