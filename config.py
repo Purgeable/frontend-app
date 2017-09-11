@@ -26,6 +26,8 @@ SECRET_KEY = 'Z30ojtSS6Ix9PspXRuqjSUFR0ocL5Zkt'
 # Miscellaneous settings
 HOST_URL = 'https://mini-kep.herokuapp.com'
 
+REMOTE_CSV_URL = 'https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest'
+
 # Apply local environment settings during development
 try:
     from config_local import *

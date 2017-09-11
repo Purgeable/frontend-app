@@ -1,9 +1,10 @@
-import json
 import datetime
 
 from flask import Blueprint, render_template_string, jsonify
-from .classes import LocalFile, RemoteFile
-from .decorators import with_markdown
+from apps.csv.local import LocalFile
+from apps.csv.remote import RemoteFile
+from apps.decorators import with_markdown
+from apps.helpers.json import to_json, from_json
 
 # Define module constants
 FILENAMES = ('dfa.csv', 'dfq.csv', 'dfm.csv')
@@ -44,18 +45,6 @@ def check_csv_identity():
         flags.append(flag)
     return all(flags)
 
-def from_json(filename):
-    """Load JSON contents and convert them into dict."""
-    with open(filename, 'r') as f:
-        content = f.read()
-    return json.loads(content)
-
-def to_json(what, filename):
-    """Save test results to status.json"""
-    with open(filename, 'w') as f:
-        content = json.dumps(what)
-        f.write(content)
-
 @main.route('/status/')
 def check_status():
     """Page that reflects the current status of file identity."""
@@ -73,8 +62,9 @@ def webhook():
     is_updated_ok = check_csv_identity()
 
     now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    status_dict = {'timestamp': now,
-                   'is_updated_ok': is_updated_ok}
+    status_dict = {
+        'timestamp': now,
+        'is_updated_ok': is_updated_ok
+    }
     to_json(status_dict, 'status.json')
-
     return render_template_string("")
