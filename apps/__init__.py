@@ -12,7 +12,7 @@ cov.start()
 
 # Create new Flask app that will be used as main entrypoint
 app = Flask(__name__)
-app.config.from_object('config')
+app.config.from_object('config.ProductionConfig')
 
 # Register app blueprints
 from apps.views import main

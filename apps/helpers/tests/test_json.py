@@ -28,4 +28,7 @@ class JSONTestCase(unittest.TestCase):
         assert data == read_data
 
     def tearDown(self):
-        os.remove(self.test_filename)
+        try:
+            os.remove(self.test_filename)
+        except OSError:
+            pass

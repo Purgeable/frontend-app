@@ -1,6 +1,6 @@
 import unittest
-import config
 
+from apps import app
 from apps.csv.remote import RemoteFile
 
 class RemoveFileTestCase(unittest.TestCase):
@@ -8,4 +8,4 @@ class RemoveFileTestCase(unittest.TestCase):
         self.csv = RemoteFile('dfm.csv')
 
     def test_attrs(self):
-        assert self.csv.url == f"{config.REMOTE_CSV_URL}/dfm.csv"
+        assert self.csv.url == f"{app.config['REMOTE_CSV_URL']}/dfm.csv"
