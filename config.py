@@ -16,8 +16,6 @@ class _BaseConfig(object):
     CSRF_SESSION_KEY = 'dKRgIERpSvVZuxFXKceWjyrCqw3tvyhE'
     # Secret key for signing cookies and other things
     SECRET_KEY = 'Z30ojtSS6Ix9PspXRuqjSUFR0ocL5Zkt'
-    # Miscellaneous
-    REMOTE_CSV_URL = 'https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest'
 
 class ProductionConfig(_BaseConfig):
     DEBUG = False
@@ -26,3 +24,7 @@ class ProductionConfig(_BaseConfig):
 class DevelopmentConfig(_BaseConfig):
     DEBUG = True
     HOST_URL = 'http://127.0.0.1:5000'
+
+class DataSourceConfig(object):
+    BASE_URL = 'https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest'
+    CSV_FILES = ('dfa.csv', 'dfm.sql', 'dfq.sql')

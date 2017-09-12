@@ -1,6 +1,7 @@
 import os
 import unittest
 import pandas as pd
+import config
 
 from apps import app
 from apps.csv.local import LocalFile
@@ -11,7 +12,8 @@ class LocalFileTestCase(unittest.TestCase):
 
     def test_attrs(self):
         assert os.path.exists(self.csv.path)
-        assert self.csv.url == f"{app.config['REMOTE_CSV_URL']}/dfa.csv"
+        ds_conf = config.DataSourceConfig
+        assert self.csv.url == f"{ds_conf.BASE_URL}/{ds_conf.CSV_FILES[0]}"
 
     def test_update_from_parent_repo(self):
         self.csv.update_from_parent_repo()
