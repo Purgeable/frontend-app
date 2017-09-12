@@ -1,13 +1,6 @@
+"""Various classes that manage local CSV files."""
 import os
-from urllib import request
-
-def get_parent_repo_url(filename):
-    url = "https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest/{}"
-    return url.format(filename)
-
-def download_file_contents(url):
-    return request.urlopen(url).read().decode('utf-8')
-
+from apps.helpers.repository import get_parent_repo_url, download_file_contents
 
 class LocalFile(object):
     """Class that controls a local CSV file."""
@@ -31,12 +24,3 @@ class LocalFile(object):
         with open(self.path, 'r') as csv:
             contents = csv.read()
         return contents
-
-class RemoteFile(object):
-    """Class that controls a remote CSV file."""
-    def __init__(self, filename):
-        self.url = get_parent_repo_url(filename)
-
-    def get_contents(self):
-        """Return contents of a remote file."""
-        return download_file_contents(self.url)
