@@ -25,6 +25,6 @@ class DevelopmentConfig(_BaseConfig):
     DEBUG = True
     HOST_URL = 'http://127.0.0.1:5000'
 
-class DataSourceConfig(object):
-    BASE_URL = 'https://raw.githubusercontent.com/epogrebnyak/mini-kep/master/data/processed/latest'
+class DataSourceConfig(object):    
+    BASE_URL = 'https://raw.githubusercontent.com/mini-kep/parser-rosstat-kep/master/data/processed/latest'
     CSV_FILES = ('dfa.csv', 'dfm.sql', 'dfq.sql')
