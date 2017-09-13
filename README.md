@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/epogrebnyak/mini-kep-app.svg?branch=master)](https://travis-ci.org/epogrebnyak/mini-kep-app) ![Coverage](https://mini-kep.herokuapp.com/static/img/coverage.svg)
+[![Build Status](https://travis-ci.org/mini-kep/frontend-app.svg?branch=master)](https://travis-ci.org/mini-kep/frontend-app) ![Coverage](https://mini-kep.herokuapp.com/static/img/coverage.svg)
 
 # mini-kep-app
 Flask app with API to get macroeconomic time series
