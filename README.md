@@ -40,7 +40,12 @@ Data interfaces relay copies of the following files:
 The logic of [the test](https://github.com/mini-kep/frontend-app/blob/master/apps/tests/test_integrity.py)
 is assure identity of the csv files at parent repo ant and app data interfaces.
 
+
+## Testing approach:
+
+Important comments are [here](https://github.com/mini-kep/frontend-app/issues/7)
+
 ## Proposed enhancements:
 
-- see listing at <https://github.com/epogrebnyak/mini-kep-app/issues/1>
+- see listing at [issue 1](https://github.com/epogrebnyak/mini-kep-app/issues/1)
 
