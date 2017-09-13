@@ -10,8 +10,8 @@ Flask app with API to get macroeconomic time series
    - <http://mini-kep.herokuapp.com>
 
 #### Frontpage:
-  - has code example with highlighting
-  - renders markdown  
+
+  - code example with highlighting  
   
 #### Data interfaces:
 
