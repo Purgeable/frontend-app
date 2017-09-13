@@ -10,4 +10,4 @@ install:
 script: 
   - pytest # src --doctest-modules --cov=src
 after_success:
-  - codecov
+  - codecov 
