@@ -1,13 +1,11 @@
 import datetime
+import config
 
 from flask import Blueprint, render_template_string, jsonify
 from apps.csv.local import LocalFile
 from apps.csv.remote import RemoteFile
 from apps.decorators import with_markdown
 from apps.helpers.json import to_json, from_json
-
-# Define module constants
-FILENAMES = ('dfa.csv', 'dfq.csv', 'dfm.csv')
 
 # Define the blueprint for this application
 main = Blueprint('main', __name__)
@@ -39,7 +37,7 @@ def check_csv_identity():
     counterparts.
     """
     flags = []
-    for filename in FILENAMES:
+    for filename in config.DataSourceConfig.CSV_FILES:
         # this will use get_contents()
         flag = (LocalFile(filename) == RemoteFile(filename))
         flags.append(flag)
@@ -54,7 +52,7 @@ def check_status():
 def webhook():
     """Receive payload from GitHub webhook and re-check file identity."""
     # Update local copies with the latest data
-    for name in FILENAMES:
+    for name in config.DataSourceConfig.CSV_FILES:
         csv_file = LocalFile(name)
         csv_file.update_from_parent_repo()
 
