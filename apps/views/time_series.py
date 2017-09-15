@@ -15,8 +15,9 @@ def indicator_homepage(domain, varname):
     }
     return render_template('ts_landing.html', **ctx)
 
+@ts.route(f'{BASE_URL}/<string:freq>')
 @ts.route(f'{BASE_URL}/<string:freq>/<path:inner_path>')
-def time_series_api_interface(domain, varname, freq, inner_path):
+def time_series_api_interface(domain, varname, freq, inner_path=None):
     """Decompose incoming URL into API request."""
     
     #FIXME: need exception invoker for this 
