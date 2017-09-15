@@ -8,7 +8,7 @@ BASE_URL = '/<string:domain>/<series>/<string:varname>'
 
 @ts.route(BASE_URL)
 def indicator_homepage(domain, series, varname, freq):
-    """Returns html view with """
+    """Returns html view with latest values, chart and download instructions."""
     ctx = {
         'domain': domain,
         'series': series,
