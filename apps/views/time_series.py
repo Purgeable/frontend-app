@@ -17,7 +17,7 @@ def indicator_homepage(domain, series, varname, freq):
     return render_template('ts_landing.html', **ctx)
 
 @ts.route(f'{BASE_URL}/<string:freq>/<path:inner_path>')
-def api(domain, series, varname, freq, inner_path):
+def time_series_api(domain, series, varname, freq, inner_path):
     if freq not in 'dwmqa':
         return jsonify({
             'error': "Frequency value is invalid"
