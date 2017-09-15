@@ -4,7 +4,9 @@ from apps.helpers.url_decomposer import decompose_inner_path
 # Define the blueprint for this application
 ts = Blueprint('time_series', __name__)
 
-@ts.route('/<string:domain>/<series>/<string:varname>/<string:freq>')
+BASE_URL = '/<string:domain>/<series>/<string:varname>/<string:freq>'
+
+@ts.route(BASE_URL)
 def landing_page(domain, series, varname, freq):
     if freq not in 'dwmqa':
         return jsonify({
@@ -18,7 +20,7 @@ def landing_page(domain, series, varname, freq):
     }
     return render_template('ts_landing.html', **ctx)
 
-@ts.route('/<string:domain>/<series>/<string:varname>/<string:freq>/<path:inner_path>')
+@ts.route(f'{BASE_URL}/<path:inner_path>')
 def api(domain, series, varname, freq, inner_path):
     ctx = {
         'domain': domain,
