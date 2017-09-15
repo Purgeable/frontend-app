@@ -7,7 +7,7 @@ ts = Blueprint('time_series', __name__)
 BASE_URL = '/<string:domain>/<series>/<string:varname>'
 
 @ts.route(BASE_URL)
-def indicator_homepage(domain, series, varname, freq):
+def indicator_homepage(domain, series, varname):
     """Returns html view with latest values, chart and download instructions."""
     ctx = {
         'domain': domain,
