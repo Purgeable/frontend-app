@@ -27,9 +27,11 @@ class URLDecomposerTestCase(unittest.TestCase):
             'start': '1998',
             'end': '2017'
         }
-        assert decompose_inner_path('yoy/eop/1998/2000/csv') == {
-            'rate': 'yoy',
-            'agg': 'eop',
-            'start': '1998',
-            'end': '2000'
-        }
+
+        # FIXME: the test below must fail
+        # assert decompose_inner_path('yoy/eop/1998/2000/csv') == {
+        #     'rate': 'yoy',
+        #     'agg': 'eop',
+        #     'start': '1998',
+        #     'end': '2000'
+        # }
