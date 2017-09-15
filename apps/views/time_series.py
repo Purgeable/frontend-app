@@ -13,7 +13,7 @@ def indicator_homepage(domain, varname):
         'domain': domain,
         'varname': varname
     }
-    return render_template('ts_landing.html', **ctx)
+    return render_template('indicator.html', **ctx)
 
 @ts.route(f'{BASE_URL}/<string:freq>')
 @ts.route(f'{BASE_URL}/<string:freq>/<path:inner_path>')
