@@ -1,7 +1,6 @@
 import unittest
 import config
 
-from apps import app
 from apps.csv.remote import RemoteFile
 from apps.helpers.repository import get_parent_repo_url, download_file_contents
 
