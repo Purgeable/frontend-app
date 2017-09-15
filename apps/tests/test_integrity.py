@@ -6,7 +6,7 @@ from datetime import date
 from urllib.parse import urljoin
 from flask import url_for
 from apps import app
-from apps.views import check_csv_identity
+from apps.views.main import check_csv_identity
 
 class IdentityTestCase(unittest.TestCase):
     def setUp(self):

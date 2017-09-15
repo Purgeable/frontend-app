@@ -17,6 +17,6 @@ def with_markdown(template):
             extensions = ['codehilite', 'fenced_code']
             contents = Markup(md.markdown(source, extensions=extensions))
             ctx['contents'] = contents
-            return render_template('base.html', **ctx)
+            return render_template('_base_md.html', **ctx)
         return decorated_fn
     return decorator

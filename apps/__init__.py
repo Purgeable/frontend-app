@@ -9,5 +9,8 @@ app = Flask(__name__)
 app.config.from_object('config.ProductionConfig')
 
 # Register app blueprints
-from apps.views import main
+from apps.views.main import main
+from apps.views.time_series import ts as time_series
+
 app.register_blueprint(main, url_prefix='')
+app.register_blueprint(time_series, url_prefix='')
