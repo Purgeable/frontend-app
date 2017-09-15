@@ -12,16 +12,20 @@ def indicator_homepage(domain, series, varname, freq):
     ctx = {
         'domain': domain,
         'series': series,
-        'varname': varname,
+        'varname': varname
     }
     return render_template('ts_landing.html', **ctx)
 
 @ts.route(f'{BASE_URL}/<string:freq>/<path:inner_path>')
 def time_series_api(domain, series, varname, freq, inner_path):
+    """Decompose incoming URL call into json"""
+    
+    #FIXME: need exception invoker for this 
     if freq not in 'dwmqa':
         return jsonify({
             'error': "Frequency value is invalid"
         }), 400
+    # ---------------
     ctx = {
         'domain': domain,
         'series': series,
