@@ -19,8 +19,8 @@ def indicator_homepage(domain, varname):
 @ts.route(f'{BASE_URL}/<string:freq>/<path:inner_path>')
 def time_series_api_interface(domain, varname, freq, inner_path=None):
     """Decompose incoming URL into API request."""
-    
-    #FIXME: need exception invoker for this 
+
+    #FIXME: need exception invoker for this
     if freq not in 'dwmqa':
         return jsonify({
             'error': "Frequency value is invalid"
@@ -29,7 +29,11 @@ def time_series_api_interface(domain, varname, freq, inner_path=None):
     ctx = {
         'domain': domain,
         'varname': varname,
-        'frequency': freq
+        'frequency': freq,
+        'rate': '',
+        'agg': '',
+        'start': '',
+        'end': ''
     }
     if inner_path is not None:
         optional_args = decompose_inner_path(inner_path)
