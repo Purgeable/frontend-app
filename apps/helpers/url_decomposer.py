@@ -15,7 +15,7 @@ ALLOWED_FINALISERS = (
 )
 
 def _get_years(tokens):
-    start, end = '', ''
+    start, end = None, None
     integers = [x for x in tokens if x.isdigit()]
     if len(integers) == 1:
         start = integers[0]
@@ -27,7 +27,7 @@ def _get_years(tokens):
 def _assign_values(tokens, allowed_values):
     postfix = [p for p in allowed_values if p in tokens]
     if not postfix:
-        return ''
+        return None
     elif len(postfix) == 1:
         return postfix[0]
     else:

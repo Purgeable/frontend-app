@@ -30,10 +30,10 @@ def time_series_api_interface(domain, varname, freq, inner_path=None):
         'domain': domain,
         'varname': varname,
         'frequency': freq,
-        'rate': '',
-        'agg': '',
-        'start': '',
-        'end': ''
+        'rate': None,
+        'agg': None,
+        'start': None,
+        'end': None
     }
     if inner_path is not None:
         optional_args = decompose_inner_path(inner_path)

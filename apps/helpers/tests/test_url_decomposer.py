@@ -5,25 +5,25 @@ class URLDecomposerTestCase(unittest.TestCase):
     def test_decompose_inner_path(self):
         assert decompose_inner_path('rog') == {
             'rate': 'rog',
-            'agg': '',
-            'start': '',
-            'end': ''
+            'agg': None,
+            'start': None,
+            'end': None
         }
         assert decompose_inner_path('yoy/') == {
             'rate': 'yoy',
-            'agg': '',
-            'start': '',
-            'end': ''
+            'agg': None,
+            'start': None,
+            'end': None
         }
         assert decompose_inner_path('avg/1991/') == {
-            'rate': '',
+            'rate': None,
             'agg': 'avg',
             'start': '1991',
-            'end': ''
+            'end': None
         }
         assert decompose_inner_path('base/1998/2017') == {
             'rate': 'base',
-            'agg': '',
+            'agg': None,
             'start': '1998',
             'end': '2017'
         }
