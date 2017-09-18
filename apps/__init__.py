@@ -7,6 +7,7 @@ from flask import Flask
 # Create new Flask app that will be used as main entrypoint
 app = Flask(__name__)
 app.config.from_object('config.ProductionConfig')
+app.url_map.strict_slashes = False
 
 # Register app blueprints
 from apps.views.main import main
