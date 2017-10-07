@@ -11,6 +11,7 @@ ALLOWED_AGGREGATORS = (
 ALLOWED_FINALISERS = (
     'info',
     'csv',
+    'json', # which should be default
     'xlsx'
 )
 
