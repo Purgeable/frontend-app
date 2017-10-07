@@ -11,11 +11,12 @@ ALLOWED_AGGREGATORS = (
 ALLOWED_FINALISERS = (
     'info',
     'csv',
-    'json', # which should be default
+    'json', #  should be default
     'xlsx'
 )
 
 def _get_years(tokens):
+    """Extract years from a list of *tokens* strings."""
     start, end = None, None
     integers = [x for x in tokens if x.isdigit()]
     if len(integers) == 1:
@@ -26,6 +27,7 @@ def _get_years(tokens):
     return start, end
 
 def _assign_values(tokens, allowed_values):
+    """Find entries of tokens"""
     postfix = [p for p in allowed_values if p in tokens]
     if not postfix:
         return None
