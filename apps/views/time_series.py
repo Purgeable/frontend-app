@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, render_template
-from apps.helpers.url_decomposer import decompose_inner_path
+from apps.helpers.custom_api import InnerPath
 
 # Define the blueprint for this application
 ts = Blueprint('time_series', __name__)
@@ -36,6 +36,6 @@ def time_series_api_interface(domain, varname, freq, inner_path=None):
         'end': None
     }
     if inner_path is not None:
-        optional_args = decompose_inner_path(inner_path)
+        optional_args = InnerPath(inner_path).get_dict()
         ctx.update(**optional_args)
     return jsonify(ctx)
