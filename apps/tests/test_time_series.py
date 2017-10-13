@@ -16,3 +16,9 @@ class TimeSeriesApiInterfaceTest(unittest.TestCase):
         response = self.app.get('/oil/series/BRENT/d/invalid/params/')
         assert response.status_code == 400
         assert 'message' in json.loads(response.data).keys()
+
+    def test_url_with_invalid_time_range(self):
+        # when end_date is less than start_date
+        response = self.app.get('/oil/series/BRENT/d/2015/2010/')
+        assert response.status_code == 400
+        assert 'message' in json.loads(response.data).keys()
