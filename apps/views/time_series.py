@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, render_template
+from flask import Blueprint, jsonify, render_template, Response
 import apps.helpers.custom_api as custom_api
 
 # Define the blueprint for this application
@@ -26,4 +26,7 @@ def handle_invalid_usage(error):
 @ts.route(f'{BASE_URL}/<string:freq>')
 @ts.route(f'{BASE_URL}/<string:freq>/<path:inner_path>')
 def time_series_api_interface(domain, varname, freq, inner_path=None):
-    return custom_api.CustomGET(domain, varname, freq, inner_path).get_csv()
+    return Response(
+        response=custom_api.CustomGET(domain, varname, freq, inner_path).get_csv(),
+        mimetype='text/csv'
+    )
