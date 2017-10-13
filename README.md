@@ -4,6 +4,12 @@
 # mini-kep-app
 Flask app with API to get macroeconomic time series
 
+## v.0.2 - custom API with slashes (2017-10-13)
+
+- <http://mini-kep.herokuapp.com/oil/series/BRENT/d/2017/>
+- <http://mini-kep.herokuapp.com/oil/series/CPI_rog/m/2000/2010>
+
+
 ## v.0.1 - relay three CSVs by github webhook + intro at frontpage
 
 #### App address:
