@@ -4,3 +4,4 @@ Pygments
 markdown
 pytest
 gunicorn
+requests
