@@ -8,7 +8,7 @@ Flask app with API to get macroeconomic time series
 
 - <http://mini-kep.herokuapp.com/oil/series/BRENT/d/2017/>
 - <http://mini-kep.herokuapp.com/ru/series/CPI_rog/m/2000/2010>
-- <http://mini-kep.herokuapp.com/all/series/GDP/a/yoy/2000/2017>
+- <http://mini-kep.herokuapp.com/ru/series/GDP/a/yoy/1998/2017>
 
 
 ## v.0.1 - relay three CSVs by github webhook + intro at frontpage
