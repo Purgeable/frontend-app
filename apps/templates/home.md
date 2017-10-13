@@ -6,8 +6,10 @@ Github: <https://github.com/mini-kep/frontend-app>
 Changelog
 =========
 
-**2017-09-07:** Mounted custom API, allowing call like <http://mini-kep.herokuapp.com/oil/series/USDRUR_CB/d/2017/>
-*frontend-app* relays this data from *db* app [here](https://github.com/mini-kep/frontend-app)
+**2017-09-07:** Mounted custom API, which relays this data from *db* app [here](https://github.com/mini-kep/frontend-app).
+Call example:
+- <http://mini-kep.herokuapp.com/ru/series/USDRUR_CB/d/2017/>
+
 
 **2017-09-07:** This app has three URLs that relay annual, quarterly and monthly macroeconomic time series
 from [mini-kep parser](https://github.com/epogrebnyak/mini-kep).
