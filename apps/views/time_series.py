@@ -15,12 +15,15 @@ def indicator_homepage(domain, varname):
     }
     return render_template('indicator.html', **ctx)
 
+
+@ts.errorhandler(custom_api.InvalidUsage)
+def handle_invalid_usage(error):
+    response = jsonify(error.to_dict())
+    response.status_code = error.status_code
+    return response
+
+
 @ts.route(f'{BASE_URL}/<string:freq>')
 @ts.route(f'{BASE_URL}/<string:freq>/<path:inner_path>')
 def time_series_api_interface(domain, varname, freq, inner_path=None):
-    try:
-        return custom_api.CustomGET(domain, varname, freq, inner_path).get_csv()
-    except custom_api.InvalidUsage as e:
-        return jsonify({
-            'error': e.message
-        }), e.status_code
+    return custom_api.CustomGET(domain, varname, freq, inner_path).get_csv()

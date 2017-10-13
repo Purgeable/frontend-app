@@ -14,4 +14,4 @@ class TimeSeriesApiInterfaceTest(unittest.TestCase):
     def test_invalid_api_request_should_return_json_error(self):
         response = self.app.get('/oil/series/BRENT/d/invalid/params/')
         assert response.status_code == 400
-        assert 'error' in json.loads(response.data).keys()
+        assert 'message' in json.loads(response.data).keys()
