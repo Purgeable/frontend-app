@@ -28,5 +28,5 @@ def handle_invalid_usage(error):
 def time_series_api_interface(domain, varname, freq, inner_path=None):
     return Response(
         response=custom_api.CustomGET(domain, varname, freq, inner_path).get_csv(),
-        mimetype='text/csv'
+        mimetype='text/plain'
     )
