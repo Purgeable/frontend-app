@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, render_template
-from apps.helpers.url_decomposer import decompose_inner_path
+import apps.helpers.custom_api as custom_api
 
 # Define the blueprint for this application
 ts = Blueprint('time_series', __name__)
@@ -15,27 +15,15 @@ def indicator_homepage(domain, varname):
     }
     return render_template('indicator.html', **ctx)
 
+
+@ts.errorhandler(custom_api.InvalidUsage)
+def handle_invalid_usage(error):
+    response = jsonify(error.to_dict())
+    response.status_code = error.status_code
+    return response
+
+
 @ts.route(f'{BASE_URL}/<string:freq>')
 @ts.route(f'{BASE_URL}/<string:freq>/<path:inner_path>')
 def time_series_api_interface(domain, varname, freq, inner_path=None):
-    """Decompose incoming URL into API request."""
-
-    #FIXME: need exception invoker for this
-    if freq not in 'dwmqa':
-        return jsonify({
-            'error': "Frequency value is invalid"
-        }), 400
-    # ---------------
-    ctx = {
-        'domain': domain,
-        'varname': varname,
-        'frequency': freq,
-        'rate': None,
-        'agg': None,
-        'start': None,
-        'end': None
-    }
-    if inner_path is not None:
-        optional_args = decompose_inner_path(inner_path)
-        ctx.update(**optional_args)
-    return jsonify(ctx)
+    return custom_api.CustomGET(domain, varname, freq, inner_path).get_csv()
