@@ -6,9 +6,27 @@ Github: <https://github.com/mini-kep/frontend-app>
 Changelog
 =========
 
-**2017-09-07:** Mounted custom API, which relays this data from *db* app [here](https://github.com/mini-kep/frontend-app).
-Call example:
+**2017-09-07:** Mounted custom API, which relays data from [db](https://github.com/mini-kep/db) as csv 
+Call examples:
+- <http://mini-kep.herokuapp.com/oil/series/BRENT/d/2017/>
 - <http://mini-kep.herokuapp.com/ru/series/USDRUR_CB/d/2017/>
+- <http://mini-kep.herokuapp.com/ru/series/CPI_rog/m/2000/2010>
+- <http://mini-kep.herokuapp.com/ru/series/CPI/m/rog/2000/2010>
+- <http://mini-kep.herokuapp.com/ru/series/GDP/a/yoy/1998/2017>
+
+Sample use:
+```python
+import pandas as pd
+
+def read_csv(source):
+    df = pd.read_csv(source, converters={0: pd.to_datetime}, index_col=0)
+    return df.iloc[:,0] 
+
+usd_er = read_csv('http://mini-kep.herokuapp.com/ru/series/USDRUR_CB/d/2017/')
+
+assert usd_er['2017-09-28'] ==  58.0102
+
+```
 
 
 **2017-09-07:** This app has three URLs that relay annual, quarterly and monthly macroeconomic time series
