@@ -6,8 +6,9 @@ Github: <https://github.com/mini-kep/frontend-app>
 Changelog
 =========
 
-**2017-09-07:** Mounted custom API, which relays data from [db](https://github.com/mini-kep/db) as csv 
-Call examples:
+**2017-09-07:** Mounted custom API, which relays data from [db](https://github.com/mini-kep/db) as CSV.  
+Call examples are:
+
 - <http://mini-kep.herokuapp.com/oil/series/BRENT/d/2017/>
 - <http://mini-kep.herokuapp.com/ru/series/USDRUR_CB/d/2017/>
 - <http://mini-kep.herokuapp.com/ru/series/CPI_rog/m/2000/2010>
