@@ -18,13 +18,14 @@ Sample use:
 ```python
 import pandas as pd
 
-def read_csv(source):
-    df = pd.read_csv(source, converters={0: pd.to_datetime}, index_col=0)
+def read_ts(source_url):
+    """Read pandas time series from *source_url*"""
+    df = pd.read_csv(source_url, converters={0: pd.to_datetime}, index_col=0)
     return df.iloc[:,0] 
 
-usd_er = read_csv('http://mini-kep.herokuapp.com/ru/series/USDRUR_CB/d/2017/')
+usd_er = read_ts('http://mini-kep.herokuapp.com/ru/series/USDRUR_CB/d/2017/')
 
-assert usd_er['2017-09-28'] ==  58.0102
+assert usd_er['2017-09-28'] == 58.01022
 
 ```
 
