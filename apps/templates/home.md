@@ -21,13 +21,15 @@ Sample use:
 import pandas as pd
 
 def read_ts(source_url):
-    """Read pandas time series from *source_url*"""
-    df = pd.read_csv(source_url, converters={0: pd.to_datetime}, index_col=0)
-    return df.iloc[:,0] 
+	"""Read pandas time series from *source_url*."""
+	return pd.read_csv(source_url, 
+                      converters={0: pd.to_datetime}, 
+                      index_col=0,
+                      squeeze=True)
 
-usd_er = read_ts('http://mini-kep.herokuapp.com/ru/series/USDRUR_CB/d/2017/')
+er = read_ts('http://mini-kep.herokuapp.com/ru/series/USDRUR_CB/d/2017/')
 
-assert usd_er['2017-09-28'] == 58.01022
+assert er['2017-09-28'] == 58.01022
 
 ```
 
