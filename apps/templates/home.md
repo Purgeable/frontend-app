@@ -6,7 +6,9 @@ Github: <https://github.com/mini-kep/frontend-app>
 Changelog
 =========
 
-**2017-09-07:** Custom API which relays time series data from [db](https://github.com/mini-kep/db).  
+**2017-09-07:** Custom API relays time series from [db](https://github.com/mini-kep/db). 
+
+Sample calls (CSV files):
 
 - <http://mini-kep.herokuapp.com/oil/series/BRENT/d/2017/>
 - <http://mini-kep.herokuapp.com/ru/series/USDRUR_CB/d/2017/>
